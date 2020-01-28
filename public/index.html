@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="message-wrap col-lg-2"></div>
+        <div class="message-wrap col-lg-8">
+            <div class="msg-wrap">
+            <div id="messages" class="media msg"></div>
+            <div class="send-wrap ">
+                <textarea id="message" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
+            </div>
+            <div class="btn-panel">
+                <div class=" col-lg-3">Your name<input id="username" placeholder="name" class="fa fa-cloud-upload"></input></div>
+                <a id=send_message  class=" col-lg-4 text-right btn   send-message-btn pull-right" role="button"><i class="fa fa-plus"></i> Send Message</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
