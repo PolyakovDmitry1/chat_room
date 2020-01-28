@@ -1,5 +1,8 @@
 # CHAT
 
+## Live Demo
+https://mychat-room.herokuapp.com/
+
 ## How to use
 Make sure you have Node.js and the npm  installed
 ```
