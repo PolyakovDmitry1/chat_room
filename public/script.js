@@ -30,6 +30,7 @@
 
   function name(){
     let nick= prompt('What is your nickname?', "nickname");
+    if(!nick) nick="nick";
     username.value=nick;
     socket.emit('add user', username.value);
     socket.on('login', (data)=>{
