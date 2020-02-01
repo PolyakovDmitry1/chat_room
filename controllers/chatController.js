@@ -4,13 +4,15 @@ var numUsers = 0;
 var nick;
 
 exports.chat = function(request, response) {
-	nick=request.session.username;
-  if (request.session.loggedin) {
-  	userlogin=request.session.username;
-  	 response.sendFile(path.join(__dirname, '../public','index.html'));
-  } else {
-    response.send('Please login to view this page!');
-  }
+  let item=[request.session.username,request.session.username];
+  user.getUser(item).then((data)=>{
+    nick=data[0].login;
+    if (request.session.loggedin) {
+  	   response.sendFile(path.join(__dirname, '../public','index.html'));
+    } else {
+      response.send('Please login to view this page!');
+    }
+  });
 };
 
 module.exports.respond = function(socket){
