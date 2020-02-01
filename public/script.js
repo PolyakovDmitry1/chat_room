@@ -4,35 +4,43 @@
    let myInput = document.getElementById('message');
    let block = document.querySelector('.msg-wrap');
    let socket = io();
-    name();
+   let nick;
+   name();
     //send
 
   send_message.addEventListener('click',(e)=>{
     let s = message.value.replace(/^\s+|\s+$/g, '');
     if(!s) return;
     e.preventDefault();
-    socket.emit('new_message', {message:message.value,username:username.value,time:getTime()});
+    socket.emit('new_message', {message:message.value,username:nick,time:getTime()});
     message.value="";
     })
 
    //listen
   socket.on('my_new_message', (data)=>{
-    messages.insertAdjacentHTML('beforeend', `<div style="background:#e6ffcc;" class="media-body"><small class="pull-right time"><i class="fa fa-clock-o"></i>${data.time}pm</small><h5 class="media-heading" style="color:#006600">${data.username}</h5><small class="col-lg-10">${data.message}</small></div> `);
-    block.scrollTop = block.scrollHeight;
+    add_messages('my_new_message', data.message, data.username, data.time);
    });
 
 
   socket.on('st_new_message', (data)=>{
-    messages.insertAdjacentHTML('beforeend', `<div style="background:#e6f7ff" class="media-body"><small class="pull-right time"><i class="fa fa-clock-o"></i>${data.time}pm</small><h5 class="media-heading">${data.username}</h5><small class="col-lg-10">${data.message}</small></div> `);
-    block.scrollTop = block.scrollHeight;
+    add_messages('st_new_message', data.message, data.username, data.time);
    })
 
 
   function name(){
-    let nick= prompt('What is your nickname?', "nickname");
-    if(!nick) nick="nick";
-    username.value=nick;
-    socket.emit('add user', username.value);
+    socket.on('add user', (data)=>{
+      nick=data.nick;
+      username.innerHTML=data.nick;
+      let dat=data.data;
+      for(var i=0; i<dat.length; i++){
+        if(dat[i].login==nick){
+          add_messages('my_new_message', dat[i].message, dat[i].login, dat[i].time);
+        } else{
+          add_messages('st_new_message', dat[i].message, dat[i].login, dat[i].time);
+        }
+      }
+    });
+  
     socket.on('login', (data)=>{
      messages.insertAdjacentHTML('beforeend', `<div class="alert alert-info msg-date"><strong>${checkparticipant(data.numUsers)}</strong></div>`);
    })
@@ -61,7 +69,7 @@
 
   myInput.addEventListener('keyup', () => {
   clearTimeout(typingTimer);
-    if (myInput.value) {
+    if (myInput.value || myInput.value.length==0) {
       typingTimer = setTimeout(doneTyping, doneTypingInterval);
       }
     });
@@ -109,3 +117,15 @@
     let t = new Date();
     return checkTime(t.getHours())+":"+checkTime(t.getMinutes())
   }
+
+
+function add_messages(belong,msg,login,time){
+  if(belong=='my_new_message'){
+    messages.insertAdjacentHTML('beforeend', `<div style="background:#e6ffcc;" class="media-body"><small class="pull-right time"><i class="fa fa-clock-o"></i>${time}pm</small><h5 class="media-heading" style="color:#006600">${login}</h5><small class="col-lg-10">${msg}</small></div> `);
+    block.scrollTop = block.scrollHeight;
+  }
+  if(belong=='st_new_message'){
+    messages.insertAdjacentHTML('beforeend', `<div style="background:#e6f7ff" class="media-body"><small class="pull-right time"><i class="fa fa-clock-o"></i>${time}pm</small><h5 class="media-heading">${login}</h5><small class="col-lg-10">${msg}</small></div> `);
+    block.scrollTop = block.scrollHeight;
+  }
+}

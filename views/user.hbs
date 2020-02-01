@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Information</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+ <div class="row justify-content-center">
+<div class="col-md-3">
+  <h2>Information</h2>      
+  <table class="table">
+    <thead>
+      <tr>
+        <th>email</th>
+        <th>name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{user.email}}</td>
+        <td>{{user.real_name}}</td>
+      </tr>
+    </tbody>
+  </table>
+<form action="logout" method="GET">
+		<button type="" class="btn btn-primary btn-block">Logout</button>
+ 	</form>
+</div>
+</div>
+</div>
+</body>
+</html>

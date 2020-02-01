@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<title>Login</title>
+</head>
+<body>
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card">
+<header class="card-header">
+	<a href="/signup" class="float-right btn btn-outline-primary mt-1">Sign up</a>
+	<h4 class="card-title mt-2">Sign in</h4>
+</header>
+<article class="card-body">
+<form  action="auth" method="POST">
+	<div class="form-group">
+	 {{# if errors }}
+      {{# each errors }}
+      <p style="font-size: 120%;" class="alert alert-danger">{{ this.msg }}</p>
+      {{/each}}
+      {{/if}}
+     </div> 
+	<div class="form-group">
+		<label>Login or email</label>
+		<input value="{{# if login}}{{login}}{{/if}}" type="text" name="username" class="form-control" placeholder="Login or email">
+	</div> 
+	<div class="form-group">
+		<label>Password</label>
+	    <input  name="password" class="form-control" type="password">
+	</div>  
+    <div class="form-group">
+        <button type="login" class="btn btn-primary btn-block">Login</button>
+    </div>                                            
+</form>
+</article> 
+<div class="border-top card-body text-center">Are you new? <a href="/signup">Sign up</a></div>
+</div> 
+</div> 
+</div> 
+</div>
+</body>
+</html>
