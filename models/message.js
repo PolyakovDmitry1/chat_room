@@ -8,7 +8,7 @@ module.exports = class Message {
     this.time = time;
   }
 
-	static getMessages(){
+  static getMessages(){
     return connection.query('SELECT * FROM messages');
   }
   
