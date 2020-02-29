@@ -9,10 +9,3 @@ const pool = mysql.createPool({
 });
 
 module.exports = pool.promise();
-
-
-	//connectionLimit: 10,
-	//host: "127.0.0.1",
-	//user: "root",
-	//database: "chat",
-	//password: ""
