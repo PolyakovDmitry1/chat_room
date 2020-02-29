@@ -1,4 +1,3 @@
-var mysql = require('mysql2');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -8,15 +7,6 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
 
-var connection = mysql.createPool({
-	//connectionLimit: 10,
-	host: "127.0.0.1",
-	user: "root",
-	database: "chat",
-	password: ""
-});
-
-module.exports=connection;
 const signupRouter=require("./routes/signupRouter.js");
 const userRouter = require("./routes/userRouter.js");
 

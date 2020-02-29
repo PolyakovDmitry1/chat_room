@@ -19,7 +19,7 @@ exports.signup= function(request, response) {
 	if(request.session.loggedin){
 		response.redirect('/chat');
 	}else{
-	user.getCountries().then(function(data){
+	user.getCountries().then(function([data]){
 	request.session.loggedin=false;	
 	response.render("signUp.hbs",{
 		countries:data,
@@ -40,8 +40,8 @@ exports.logout=function (req, res) {
 exports.addUser= function(req,res) {
 	let timestamp=Math.round((new Date()).getTime() / 1000);
 	req.session.username=req.body.login;
-	let userdata=[req.body.email,req.body.login,req.body.name,req.body.password,req.body.date,timestamp,req.body.country];
-	user.registration(userdata).then(function(){
+	let newUser=new user(req.body.email,req.body.login,req.body.name,req.body.password,req.body.date,timestamp,req.body.country);
+	newUser.save().then(function(){
 		res.redirect('/chat');
 	});	
 };

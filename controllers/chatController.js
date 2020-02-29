@@ -1,15 +1,16 @@
 let user=require("../models/user.js");
+let message=require("../models/message.js");
 var path = require('path');
 var numUsers = 0;
 var nick;
 
-exports.chat = function(request, response) {
+exports.chat = async function(request, response) {
   let item=[request.session.username, request.session.username];
     if (request.session.loggedin) {
-      user.getUser(item).then(function(data){
+      let [data]=await user.getUser(item);
         nick=data[0].login;
   	    response.sendFile(path.join(__dirname, '../public','index.html'));
-      });  
+  
     } else {
       response.send('Please login to view this page!');
     }
@@ -19,7 +20,7 @@ exports.chat = function(request, response) {
 
 module.exports.respond = function(socket){
 	var addedUser=false;
-  	user.getMessages().then(function(data){
+  message.getMessages().then(function([data]){
   		addedUser=true;
   	socket.username=nick;
   	socket.emit('add user', {data:data,nick:nick});
@@ -39,10 +40,11 @@ module.exports.respond = function(socket){
   	});
 
 
-  socket.on('new_message', function(data){
+  socket.on('new_message', async function(data){
     socket.broadcast.emit('st_new_message', {message: data.message, username: data.username,time:data.time});
     socket.emit('my_new_message', {message: data.message, username: data.username,time:data.time});
-    user.saveMessage(data.message, data.username, data.time).then(()=>{});
+    let newMessage=new message(data.message, data.username, data.time);
+    await newMessage.saveMessage();
   });
 
 

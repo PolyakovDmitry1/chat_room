@@ -31,7 +31,7 @@ signupRouter.post('/registration',
             .custom(value => !/\s/.test(value))
             .withMessage('No spaces are allowed in the login')
         	.custom(login=>{if(!login) return;
-        		return user.checklogin(login).then(data=>{
+        		return user.checklogin(login).then(([data])=>{
         			if(data.length>0){
         				return Promise.reject(new Error("Login already exists"));
         			}
@@ -42,7 +42,7 @@ signupRouter.post('/registration',
             .withMessage('email not valid')
             .bail()
             .custom(email=>{if(!email) return;
-        		return user.checkemail(email).then(data=>{
+        		return user.checkemail(email).then(([data])=>{
         			if(data.length>0){
         				return Promise.reject(new Error("Email already exists"));
         			}

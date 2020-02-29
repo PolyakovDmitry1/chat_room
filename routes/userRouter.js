@@ -19,7 +19,7 @@ userRouter.use('/auth',
             .withMessage('No spaces are allowed in the login')
             .bail()
         	.custom(login=>{
-        		return user.getUser([login,login]).then(data=>{
+        		return user.getUser([login,login]).then(([data, fields])=>{
         			if(data.length<1){
         				return Promise.reject(new Error("The login or email is incorrect"));
         			}
@@ -34,9 +34,9 @@ userRouter.use('/auth',
             .bail()
             .custom((password, {req})=>{
         		return user.data([password,req.body.username,req.body.username]).then(data=>{
-        			if(data.length<1){
+        			if(!data){
         				return Promise.reject(new Error("Password is incorrect"));
-        			}
+        			} 
         		});
         	}),
     ], (req, res) => {

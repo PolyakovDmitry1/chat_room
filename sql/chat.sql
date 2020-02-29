@@ -27,7 +27,7 @@ CREATE TABLE `accounts` (
   `email` varchar(45) DEFAULT NULL,
   `login` varchar(45) DEFAULT NULL,
   `real_name` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `timestamp` int(11) DEFAULT NULL,
   `country` varchar(32) DEFAULT NULL,
